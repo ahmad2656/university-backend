@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const dotenv = require('dotenv');
 require("dotenv").config();
 
 const connectDB = require("./config/db");
@@ -11,7 +12,6 @@ const studentRoutes = require("./routes/studentRoutes");
 const teacherRoutes = require("./routes/teacherRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const aiRoutes = require("./routes/aiRoutes");
-
 const app = express();
 
 app.use(cors());
