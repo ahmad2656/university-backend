@@ -56,7 +56,7 @@ const updateProfile = async (req, res) => {
     const { full_name, phone } = req.body;
     const updateData = { full_name, phone };
     if (req.file) {
-      updateData.photo = req.file.path.replace(/\\/g, "/");
+      updateData.photo = req.file.path;
     }
     const student = await Student.findOneAndUpdate(
       { user_id: req.user.userId },
@@ -184,7 +184,7 @@ const getAssignments = async (req, res) => {
 
     const assignmentsWithStatus = assignments.map((a) => {
       const submission = a.submissions.find(
-        (s) => s.student_id.toString() === student._id.toString()
+        (s) => s.student_id.toString() === student._id.toString(),
       );
       return {
         ...a.toObject(),
@@ -206,11 +206,13 @@ const submitAssignment = async (req, res) => {
     const assignment = await Assignment.findById(assignment_id);
 
     if (!assignment) {
-      return res.status(404).json({ success: false, message: "Assignment not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Assignment not found" });
     }
 
     const alreadySubmitted = assignment.submissions.find(
-      (s) => s.student_id.toString() === student._id.toString()
+      (s) => s.student_id.toString() === student._id.toString(),
     );
 
     if (alreadySubmitted) {
@@ -249,7 +251,8 @@ const submitAssignment = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: status === "late" ? "Submitted late!" : "Submitted successfully!",
+      message:
+        status === "late" ? "Submitted late!" : "Submitted successfully!",
       status,
     });
   } catch (error) {
