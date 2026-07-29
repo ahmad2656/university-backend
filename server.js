@@ -43,10 +43,15 @@ app.get("/", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.log("=== ERROR CAUGHT ===");
+  console.log("Name:", err?.name);
+  console.log("Message:", err?.message);
+  console.log("Stack:", err?.stack);
+  console.log("Full:", err);
+  console.log("====================");
   res.status(500).json({
     success: false,
-    message: err.message || "Internal Server Error",
+    message: err?.message || "Internal Server Error",
   });
 });
 
