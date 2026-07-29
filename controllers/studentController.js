@@ -232,7 +232,7 @@ const submitAssignment = async (req, res) => {
         const ext = path.extname(file.originalname).toLowerCase();
         const fileType = ext === ".pdf" ? "pdf" : "image";
         files.push({
-          url: file.path.replace(/\\/g, "/"),
+          url: file.path,
           type: fileType,
           name: file.originalname,
         });

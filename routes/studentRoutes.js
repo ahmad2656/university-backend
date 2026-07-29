@@ -14,8 +14,8 @@ const {
   submitAssignment,
 } = require("../controllers/studentController");
 const { isStudent } = require("../middleware/roleMiddleware");
-const upload = require("../utils/uploadMiddleware");
 const uploadProfilePhoto = require("../middleware/uploadProfilePhoto");
+const uploadAssignment = require("../middleware/uploadAssignment");
 
 router.use(isStudent);
 
@@ -40,7 +40,7 @@ router.patch("/fee/:fee_id/pay", payFee);
 router.get("/assignments", getAssignments);
 router.post(
   "/assignments/:assignment_id/submit",
-  upload.array("files", 2),
+  uploadAssignment.array("files", 2),
   submitAssignment,
 );
 
